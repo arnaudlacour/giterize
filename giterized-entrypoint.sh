@@ -36,11 +36,9 @@ applyLayer ()
         test -n "${gitPath}" && echo "  path: ${gitPath}"
   
         git clone --depth 1 ${gitBranch:+--branch} ${gitBranch} "${gitUrl}" "${gitTempDir}"
-        die_on_error 141 "Git clone failure"  || exit ${?}
         
         # shellcheck disable=SC2086
         cp -af ${gitTempDir}/* "${gitStagingDir}"
-        die_on_error 142 "Copy to staging failure"  || exit ${?}
     fi    
 }
 
