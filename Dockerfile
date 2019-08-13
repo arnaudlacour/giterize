@@ -2,6 +2,9 @@ ARG ORIGINAL_IMAGE
 FROM ${ORIGINAL_IMAGE}
 ARG ORIGINAL_ENTRYPOINT
 ENV ORIGINAL_ENTRYPOINT=${ORIGINAL_ENTRYPOINT}
+# a variable for cases when .subst files need to expand to ${variable}
+# in the template, use _DOLLAR_{variable}
+ENV _DOLLAR_="$"
 # Get envsubst on Alpine-based images
 RUN set -x \
     && which apk \
