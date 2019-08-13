@@ -20,8 +20,10 @@ RUN set -x \
     || exit 0
 # Get envsubst on Debian
 RUN set -x \
-    && which apt \
-    && apt -y install gettext-base \
+    && which apt-get \
+    && apt-get update \
+    && apt-get -y install gettext-base \
+    && apt-get clean \
     || exit 0
 COPY giterized-entrypoint.sh /
 ENTRYPOINT [ "/giterized-entrypoint.sh" ]
