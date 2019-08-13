@@ -5,11 +5,11 @@
 ${VERBOSE} && set -x
 
 ###############################################################################
-# get_value (variable)
+# getValue (variable)
 #
 # Get the value of a variable passed, preserving any spaces
 ###############################################################################
-get_value ()
+getValue ()
 {
     # the following will preserve spaces in the printf
     IFS="%%"
@@ -22,9 +22,9 @@ get_value ()
 ########################################################################################
 applyLayer ()
 {
-    gitUrl=$( get_value "${1}_URL" )
-    gitBranch=$( get_value "${1}_BRANCH" )
-    gitPath=$( get_value "${1}_PATH" )
+    gitUrl=$( getValue "${1}_URL" )
+    gitBranch=$( getValue "${1}_BRANCH" )
+    gitPath=$( getValue "${1}_PATH" )
 
     # this is a precaution because git clone needs an empty target
     rm -rf "${gitTempDir}"
@@ -68,9 +68,9 @@ applyLayers ()
 
     # creates a spaced separated list of server profiles starting with the parent most
     # profile and moving down.
-    while test -n "$( get_value ${gitParent} )" ; do
+    while test -n "$( getValue ${gitParent} )" ; do
         # get the parent layer
-        gitLayer=$( get_value ${gitParent} )
+        gitLayer=$( getValue ${gitParent} )
         # prepend the layer to the list
         gitLayerList="${gitLayer}${gitLayerList:+ }${gitLayerList}"
         # update the current parent
