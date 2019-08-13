@@ -85,11 +85,22 @@ applyLayers ()
 
     #Finally after all are processed, get the final top level SERVER_PROFILE
     applyLayer "${gitPrefix}"
+}
 
+expandFiles()
+{
+    # shellcheck disable=SC2044
+    for template in $( find "${gitStagingDir}" -type f -iname \*.subst ) ; do
+        ${VERBOSE} && echo "  - ${template}"
+        envsubst < "${template}" > "${template%.subst}"
+    done
+}
+
+deployLayers()
+{
     echo "merging Git content to container"
     cp -af "${gitStagingDir}"/* /
 }
-
 
 # Below is the prefix for the environment variable for all things GIT
 gitPrefix="GIT"
@@ -100,6 +111,8 @@ if test -n "$( getValue ${gitPrefix}_URL )" ; then
     gitStagingDir=${baseDir}/staging
     mkdir -p "${gitStagingDir}"
     applyLayers
+    expandFiles
+    deployLayers
 fi
 
 exec "${ORIGINAL_ENTRYPOINT}" "$@"
