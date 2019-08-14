@@ -1,7 +1,11 @@
 version: '3.3'
 services:
   sut:
-    image: arnaudlacour/giterize:${CACHE_TAG}
+    build:
+     context: .
+     args:
+      - ORIGINAL_IMAGE=alpine
+      - ORIGINAL_CMD=/bin/sh
     volumes:
       - .:/opt
     command: /opt/run_tests.sh
