@@ -3,6 +3,7 @@ FROM ${ORIGINAL_IMAGE}
 ARG ORIGINAL_ENTRYPOINT
 ENV ORIGINAL_ENTRYPOINT=${ORIGINAL_ENTRYPOINT}
 ARG ORIGINAL_CMD
+ENV ORIGINAL_CMD=${ORIGINAL_CMD}
 # a variable for cases when .subst files need to expand to ${variable}
 # in the template, use _DOLLAR_{variable}
 ENV _DOLLAR_="$"
@@ -26,6 +27,7 @@ RUN set -x \
     && apt-get -y install gettext-base \
     && apt-get clean \
     || exit 0
+
 COPY giterized-entrypoint.sh /
-CMD "${ORIGINAL_CMD}"
+
 ENTRYPOINT [ "/giterized-entrypoint.sh" ]
