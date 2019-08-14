@@ -8,4 +8,3 @@ docker build \
     --build-arg "ORIGINAL_IMAGE=${image}" \
     -f ${DOCKERFILE_PATH} \
     -t ${IMAGE_NAME} .
-    .
