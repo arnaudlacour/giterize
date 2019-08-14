@@ -113,4 +113,4 @@ if test -n "$( getValue ${gitPrefix}_URL )" ; then
     deployLayers
 fi
 
-exec "${ORIGINAL_ENTRYPOINT}" "$@"
+exec "${ORIGINAL_ENTRYPOINT} ${*}"

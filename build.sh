@@ -52,8 +52,10 @@ done
 
 docker pull ${image}
 originalEntrypoint=$( docker image inspect ${image} --format '{{join .Config.Entrypoint " "}}' )
+originalCmd=$( docker image inspect ${image} --format '{{join .Config.Cmd " "}}' )
 ${dryRun} docker build \
     --build-arg "ORIGINAL_ENTRYPOINT=${originalEntrypoint}" \
+    --build-arg "ORIGINAL_CMD=${originalCmd}" \
     --build-arg "ORIGINAL_IMAGE=${image}" \
     ${tag+--tag }${tag} \
     .
