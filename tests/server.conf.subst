@@ -1,2 +1,2 @@
-This variable expands      : ${PWD}
-This is a run-time variable: ${_DOLLAR_}{PWD}
+This variable expands      : ${VERBOSE}
+This is a run-time variable: ${_DOLLAR_}{VERBOSE}
