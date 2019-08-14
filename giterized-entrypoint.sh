@@ -38,7 +38,7 @@ applyLayer ()
         git clone --depth 1 ${gitBranch:+--branch} ${gitBranch} "${gitUrl}" "${gitTempDir}"
         
         # shellcheck disable=SC2086
-        cp -af ${gitTempDir}/* "${gitStagingDir}"
+        cp -af ${gitTempDir}/${gitPath}/* "${gitStagingDir}"
     fi    
 }
 

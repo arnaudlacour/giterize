@@ -12,19 +12,20 @@ RUN set -x \
     && which apk \
     && apk add --update libintl \
     && apk add --virtual build_deps gettext \
+    && apk add git \
     && cp /usr/bin/envsubst /usr/local/bin/envsubst \
     && apk del build_deps \
     || exit 0
 # Get envsubst via yum
 RUN set -x \
-    && which yum \
-    && yum -y install gettext \
+    && which yum \  
+    && yum -y install gettext git \
     || exit 0
 # Get envsubst on Debian
 RUN set -x \
     && which apt-get \
     && apt-get update \
-    && apt-get -y install gettext-base \
+    && apt-get -y install gettext-base git \
     && apt-get clean \
     || exit 0
 
