@@ -36,9 +36,15 @@ applyLayer ()
         test -n "${gitPath}" && echo "  path: ${gitPath}"
   
         git clone --depth 1 ${gitBranch:+--branch} ${gitBranch} "${gitUrl}" "${gitTempDir}"
+
+        # Apply the environment variables included in each layer
+        # this mechanism allows to layer environment variables for envsubst
+        # such that variables included in a parent will expand in a child layer
+        . "${gitTempDir}/${gitPath}/.env"
         
         # shellcheck disable=SC2086
         cp -af ${gitTempDir}/${gitPath}/* "${gitStagingDir}"
+
     fi    
 }
 

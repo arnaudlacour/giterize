@@ -7,7 +7,7 @@ ENV ORIGINAL_CMD=${ORIGINAL_CMD}
 # a variable for cases when .subst files need to expand to ${variable}
 # in the template, use _DOLLAR_{variable}
 ENV _DOLLAR_="$"
-# Get envsubst on Alpine-based images
+# Get git and envsubst on Alpine-based images
 RUN set -x \
     && which apk \
     && apk add --update libintl \
