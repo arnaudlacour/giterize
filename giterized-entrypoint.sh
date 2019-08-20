@@ -40,9 +40,11 @@ applyLayer ()
         # Apply the environment variables included in each layer
         # this mechanism allows to layer environment variables for envsubst
         # such that variables included in a parent will expand in a child layer
-        set +a
-        . "${gitTempDir}/${gitPath}/.env"
-        set -a
+        if test -f "${gitTempDir}/${gitPath}/.env" ; then
+            set +a
+            . "${gitTempDir}/${gitPath}/.env"
+            set -a
+        fi
         
         # shellcheck disable=SC2086
         cp -af ${gitTempDir}/${gitPath}/* "${gitStagingDir}"
