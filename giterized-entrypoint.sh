@@ -42,13 +42,13 @@ applyLayer ()
         # such that variables included in a parent will expand in a child layer
         if test -f "${gitTempDir}/${gitPath}/.env" ; then
             set +a
+            # shellcheck disable=SC1090
             . "${gitTempDir}/${gitPath}/.env"
             set -a
         fi
         
         # shellcheck disable=SC2086
         cp -af ${gitTempDir}/${gitPath}/* "${gitStagingDir}"
-
     fi    
 }
 
