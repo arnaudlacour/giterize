@@ -27,6 +27,8 @@ RUN set -x \
     && apt-get update \
     && apt-get -y install gettext-base git \
     && apt-get clean \
+    && which git \
+    && which ensubst \
     || exit 0
 
 COPY giterized-entrypoint.sh /
