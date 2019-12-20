@@ -111,7 +111,7 @@ deployLayers()
 }
 
 # Below is the prefix for the environment variable for all things GIT
-gitPrefix="GIT"
+gitPrefix="${GIT_PREFIX:-GIT}"
 
 if test -n "$( getValue ${gitPrefix}_URL )" ; then
     baseDir=/tmp/git
