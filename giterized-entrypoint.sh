@@ -123,4 +123,7 @@ if test -n "$( getValue ${gitPrefix}_URL )" ; then
     deployLayers
 fi
 
+# if you don't want a script to be run automatically, simply make it not executable
+find ${gitStagingDir}/hooks -type f -perm -u=x -iname \*.sh -exec sh ${VERBOSE:+-x} {} \;
+
 exec ${ORIGINAL_ENTRYPOINT} ${*:-${ORIGINAL_CMD}}
