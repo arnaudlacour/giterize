@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 usage ()
 {
+    if test -n "${1}" ; then
+        echo $*
+    fi
 cat <<END_USAGE
 Usage: build.sh {options}
     where {options} include:
@@ -22,19 +25,15 @@ while ! test -z "${1}" ; do
     case "${1}" in
         -i|--image)
             shift
-            if test -z "${1}" ; then
-                echo "You must provide an image"
-                usage
+            if test -n "${1}" ; then
+                image="${1}"
             fi
-            image="${1}"
             ;;
         -t|--tag)
             shift
             if test -z "${1}" ; then
-                echo "You must provide a docker tag"
-                usage
+                tag="${1}"
             fi
-            tag="${1}"
             ;;
         --dry-run)
             dryRun="echo"
@@ -43,12 +42,23 @@ while ! test -z "${1}" ; do
             usage
             ;;
         *)
-            echo "Unrecognized option"
-            usage
+            usage "Unrecognized option"
             ;;
     esac
     shift
 done
+
+showUsage=false
+if test -z "${image}" ; then
+    echo "You must provide a source image to giterize. Use -i or --image"
+    showUsage=true
+fi
+if test -z "${tag}" ; then
+    echo "You must provide an image tag to giterize when specifying -t or --tag"
+    showUsage=true
+fi
+
+$showUsage && usage
 
 docker pull ${image}
 originalEntrypoint=$( docker image inspect ${image} --format '{{join .Config.Entrypoint " "}}' )
