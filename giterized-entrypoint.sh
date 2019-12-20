@@ -41,6 +41,8 @@ applyLayer ()
         # this mechanism allows to layer environment variables for envsubst
         # such that variables included in a parent will expand in a child layer
         if test -f "${gitTempDir}/${gitPath}/.env" ; then
+            echo "### sourcing environment variables"
+            cat "${gitTempDir}/${gitPath}/.env"
             set +a
             # shellcheck disable=SC1090
             . "${gitTempDir}/${gitPath}/.env"
@@ -123,7 +125,7 @@ if test -n "$( getValue ${gitPrefix}_URL )" ; then
     deployLayers
 fi
 
-# if you don't want a script to be run automatically, simply make it not executable
-find ${gitStagingDir}/hooks -type f -perm -u=x -iname \*.sh -exec sh ${VERBOSE:+-x} {} \;
+# if you don't want a script to be run automatically, simply make it not executable for the user
+test -d "${gitStagingDir}/hooks" && find "${gitStagingDir}/hooks" -type f -perm -u=x -iname \*.sh -exec sh ${VERBOSE:+-x} {} \;
 
 exec ${ORIGINAL_ENTRYPOINT} ${*:-${ORIGINAL_CMD}}
