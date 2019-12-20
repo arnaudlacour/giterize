@@ -31,7 +31,7 @@ while ! test -z "${1}" ; do
             ;;
         -t|--tag)
             shift
-            if test -z "${1}" ; then
+            if test -n "${1}" ; then
                 tag="${1}"
             fi
             ;;
