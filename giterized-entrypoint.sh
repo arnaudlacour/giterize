@@ -116,7 +116,7 @@ deployLayers()
 gitPrefix="${GIT_PREFIX:-GIT}"
 
 if test -n "$( getValue ${gitPrefix}_URL )" ; then
-    baseDir=/tmp/git
+    baseDir="${BASE_DIR:-/tmp/git}"
     gitTempDir=${baseDir}/tmp
     gitStagingDir=${baseDir}/staging
     mkdir -p "${gitStagingDir}"
